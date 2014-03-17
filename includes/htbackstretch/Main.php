@@ -7,6 +7,9 @@ class Main
     {
         add_action('after_setup_theme', array($this, 'blockRegister'));
         add_action('init', array($this, 'extend_updater'));
+        // add custom backgroun theme support
+        $themeSupport = new \tad\wrappers\ThemeSupport();
+        $themeSupport->add('custom-background');
     }
 
     public function blockRegister()
