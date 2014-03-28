@@ -29,9 +29,9 @@
  */
 
 // Useful global constants
-define( 'HTBACKSTRETCH_BLOCK_VERSION', '0.1.0');
-define( 'HTBACKSTRETCH_BLOCK_URL', plugin_dir_url( __FILE__));
-define( 'HTBACKSTRETCH_BLOCK_PATH', dirname( __FILE__) . '/');
+define('HTBACKSTRETCH_BLOCK_VERSION', '0.1.0');
+define('HTBACKSTRETCH_BLOCK_URL', plugin_dir_url(__FILE__));
+define('HTBACKSTRETCH_BLOCK_PATH', dirname(__FILE__) . '/');
 // Include the class loader if it's not defined already
 if (!class_exists('jwage\SplClassLoader')) {
     require_once dirname(__FILE__) . '/includes/jwage/SplClassLoader.php';
