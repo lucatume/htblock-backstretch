@@ -1,15 +1,20 @@
 <?php
 namespace htbackstretch;
 
+use \tad\wrappers\ThemeCustomizeSection;
+
 class Main
 {
     public function __construct()
     {
         add_action('after_setup_theme', array($this, 'blockRegister'));
         add_action('init', array($this, 'extend_updater'));
-        // add custom backgroun theme support
-        $themeSupport = new \tad\wrappers\ThemeSupport();
-        $themeSupport->add('custom-background');
+        // will add the 'background_images' section
+        $this->themeSection = new ThemeCustomizeSection('Background images', 'Set one or more images to be used as the site background.', __NAMESPACE__);
+        // add the setting and the control with it
+        // will be stored in 'background_images[image_sources]' as an option
+        // defaults to an empty string
+        $this->themeSection->addSetting('image_sources', 'Upload or select one or more images.', '', 'multi-image');
     }
 
     public function blockRegister()
