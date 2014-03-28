@@ -6,7 +6,7 @@ class Block extends \HeadwayBlockAPI {
     public $id = 'htbackstretch';
     public $name = 'Backstretch block';
     public $options_class = '\htbackstretch\BlockOptions';
-    public $description = 'Integrates Backstretch plugin with Headway themes.';
+    public $description = 'Integrates Backstretch jQuery plugin with Headway themes.';
 
     // public static function init_action($block_id, $block) 
     // {
