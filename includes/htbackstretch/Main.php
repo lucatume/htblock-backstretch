@@ -10,7 +10,7 @@ class Main
         add_action('after_setup_theme', array($this, 'blockRegister'));
         add_action('init', array($this, 'extend_updater'));
         // will add the 'background_images' section
-        $this->themeSection = new ThemeCustomizeSection('Background images', 'Set one or more images to be used as the site background.', __NAMESPACE__);
+        $this->themeSection = new ThemeCustomizeSection('Background images', 'backstretch', 'Set one or more images to be used as the site background.', __NAMESPACE__);
         // add the setting and the control with it
         // will be stored in 'background_images[image_sources]' as an option
         // defaults to an empty string
