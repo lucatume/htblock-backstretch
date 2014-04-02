@@ -1,0 +1,3 @@
+# Headway theme Backstretch block
+
+A block plugin that will add the possibility for theme users to set one or more images to be used as the site background using the [Backstretch jQuery plugin](http://srobbin.com/jquery-plugins/backstretch/) by [@srobbin](https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fsrobbin.com%2Fjquery-plugins%2Fbackstretch%2F&region=follow_link&screen_name=srobbin&tw_p=followbutton&variant=2.0)
