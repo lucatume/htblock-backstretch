@@ -14,7 +14,7 @@ class Main
         add_action('after_setup_theme', array($this, 'blockRegister'));
         add_action('init', array($this, 'extend_updater'));
         // add the 'Background images' section
-        // options will be store in the 'backstretch' option in an array format
+        // options will be stored in the 'backstretch' option in an array format
         // the namespace is used as the text domain
         $this->themeSection = new Section('Background images', 'backstretch', 'What to use as site background?', __NAMESPACE__);
         // add the multi-image control to allow the user to select one or more images
