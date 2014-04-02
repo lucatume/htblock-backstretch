@@ -35,6 +35,9 @@ class Main
 
     public function addVisualEditorPanels()
     {
+        if (!class_exists('Headway')) {
+            return;
+        }
         // include the class defining those options
         include_once dirname(__FILE__) . '/VisualEditorPanel.php';
         // register the visual editor panel
