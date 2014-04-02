@@ -1,20 +1,50 @@
 <?php
 namespace htbackstretch;
 
-use \tad\wrappers\ThemeCustomizeSection;
+use \tad\wrappers\ThemeCustomizeSection as Section;
+use \tad\wrapers\headway\BlockSetting as Setting;
 
 class Main
 {
+    protected $section;
+    protected $blockSetting;
+
     public function __construct()
     {
         add_action('after_setup_theme', array($this, 'blockRegister'));
         add_action('init', array($this, 'extend_updater'));
-        // will add the 'background_images' section
-        $this->themeSection = new ThemeCustomizeSection('Background images', 'backstretch', 'Set one or more images to be used as the site background.', __NAMESPACE__);
-        // add the setting and the control with it
-        // will be stored in 'background_images[image_sources]' as an option
-        // defaults to an empty string
-        $this->themeSection->addSetting('image_sources', 'Upload or select one or more images.', '', 'multi-image');
+        // add the 'Background images' section
+        // options will be store in the 'backstretch' option in an array format
+        // the namespace is used as the text domain
+        $this->themeSection = new Section('Background images', 'backstretch', 'What to use as site background?', __NAMESPACE__);
+        // add the multi-image control to allow the user to select one or more images
+        // defaults to no images
+        // will be stored in 'backstretch[imageSources]'
+        $this->themeSection->addSetting('imageSources', 'Upload or select one or more images.', '', 'multi-image');
+        // load site-wide settings from the database
+        // using namespace as it's the same as the block id
+        $blockSettings = new \tad\wrappers\HeadwayBlockSetting(__NAMESPACE__);
+        // conservative default
+        $showColorPicker = $blockSettings->settings['bg-color-allow'];
+        if (is_null($showColorPicker) or (bool)$showColorPicker) {
+            $this->themeSection->addSetting('bg-color', 'Select a background color', '#FFF', 'color');
+        }
+        // register this block theme-wide options
+        add_action('after_setup_theme', array($this, 'addVisualEditorPanels'));
+    }
+
+    public function addVisualEditorPanels()
+    {
+        // include the class defining those options
+        include_once dirname(__FILE__) . '/VisualEditorPanel.php';
+        // register the visual editor panel
+        $class = '\htbackstretch\VisualEditorPanel';
+        $tag = 'headway_visual_editor_display_init';
+        // hook in with a priority higher than the one Headway registers
+        // its own setup block to have the Header Image options panel show
+        // on the right side of it
+        $priority = 1000;
+        add_action($tag, create_function('', 'return headway_register_visual_editor_panel_callback(\'' . $class . '\');'), $priority);
     }
 
     public function blockRegister()
