@@ -2,7 +2,7 @@
 namespace htbackstretch;
 
 use \tad\wrappers\ThemeCustomizeSection as Section;
-use \tad\wrappers\headway\BlockSettings as Settings;
+use \tad\wrappers\headway\GlobalSettings as Settings;
 use \tad\wrappers\headway\VEPanel;
 
 class Main
@@ -23,15 +23,22 @@ class Main
         // defaults to no images
         // will be stored in 'backstretch[imageSources]'
         $this->themeSection->addSetting('imageSources', 'Upload or select one or more images.', '', 'multi-image');
-        // load site-wide settings from the database
-        // using namespace as it's the same as the block id
-        $blockSettings = new Settings(__NAMESPACE__);
-        // conservative default
-        $showColorPicker = $blockSettings->settings['bg-color-allow'];
-        if (is_null($showColorPicker) or (bool)$showColorPicker) {
+        // load site-wide settings from the database passing a prefix to get this block
+        // theme-wide settings only
+        // see the htbackstretch\VisualEditorPanel class for the settings slugs
+        $blockSettings = new Settings('htbackstretch-');
+        // default behavior is to allow the user to set the bg color
+        // access 'htbackstretch-no-image-selected' setting in camelBack
+        $showColorPicker = $blockSettings->noImageSelected;
+        // please note: the first option in the select the theme developer
+        // uses has the index 0 and that's the one reading
+        // 'user can set a background color'
+        if (is_null($showColorPicker) or $showColorPicker == '0') {
+            // if the setting has not been set yet or the setting is
+            // true then add the color picker to theme customizer controls
             $this->themeSection->addSetting('bg-color', 'Select a background color', '#FFF', 'color');
         }
-        // register this block theme-wide options
+        // register this block theme-wide settings
         $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
     }
 
