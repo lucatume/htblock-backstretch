@@ -33,25 +33,7 @@ class Main
         }
         // register this block theme-wide options
         $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
-        // add_action('after_setup_theme', array($this, 'addVisualEditorPanels'));
     }
-
-    // public function addVisualEditorPanels()
-    // {
-    //     if (!class_exists('Headway')) {
-    //         return;
-    //     }
-    //     // include the class defining those options
-    //     include_once dirname(__FILE__) . '/VisualEditorPanel.php';
-    //     // register the visual editor panel
-    //     $class = '\htbackstretch\VisualEditorPanel';
-    //     $tag = 'headway_visual_editor_display_init';
-    //     // hook in with a priority higher than the one Headway registers
-    //     // its own setup block to have the Header Image options panel show
-    //     // on the right side of it
-    //     $priority = 1000;
-    //     add_action($tag, create_function('', 'return headway_register_visual_editor_panel_callback(\'' . $class . '\');'), $priority);
-    // }
 
     public function blockRegister()
     {
