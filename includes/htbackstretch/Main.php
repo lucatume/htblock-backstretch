@@ -36,6 +36,7 @@ class Main
         if (is_null($showColorPicker) or $showColorPicker == '0') {
             // if the setting has not been set yet or the setting is
             // true then add the color picker to theme customizer controls
+            // the set color will be stored in the 'backstretch[bg-color]' option
             $this->themeSection->addSetting('bg-color', 'Select a background color', '#FFF', 'color');
         }
         // register this block theme-wide settings
