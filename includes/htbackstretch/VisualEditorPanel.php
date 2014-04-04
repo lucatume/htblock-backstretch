@@ -27,42 +27,41 @@ class VisualEditorPanel extends \HeadwayVisualEditorPanelAPI
                     'use a default color',
                     'use a default image'
                     ),
+                'default' => '0',
                 'toggle' => array(
                     0 => array(
                         'hide' => array(
-                            '#input-htbackstretch-default-bg-color',
-                            '#input-htbackstretch-default-bg-image'
+                            '#input-htbackstretch-default-bg-color-notice',
+                            '#input-htbackstretch-default-bg-image-notice'
                             )
                         ),
                     1 => array(
                         'show' => array(
-                            '#input-htbackstretch-default-bg-color'
+                            '#input-htbackstretch-default-bg-color-notice'
                             ),
                         'hide' => array(
-                            '#input-htbackstretch-default-bg-image'
+                            '#input-htbackstretch-default-bg-image-notice'
                             )
                         ),
                     2 => array(
                         'hide' => array(
-                            '#input-htbackstretch-default-bg-color'
+                            '#input-htbackstretch-default-bg-color-notice'
                             ),
                         'show' => array(
-                            '#input-htbackstretch-default-bg-image'
+                            '#input-htbackstretch-default-bg-image-notice'
                             )
                         )
                     )
                 ),
-            'htbackstretch-default-bg-color' => array(
-                'type' => 'colorpicker',
-                'name' => 'htbackstretch-default-bg-color',
-                'label' => 'Default background color',
-                'default' => '#FFF',
+            'htbackstretch-default-bg-color-notice' => array(
+                'type' => 'notice',
+                'name' => 'htbackstretch-default-bg-color-notice',
+                'notice' => 'Go and set the body background color in the Visual Editor design mode!'
                 ),
-            'htbackstretch-default-bg-image' => array(
-                'type' => 'image',
-                'name' => 'htbackstretch-default-bg-image',
-                'label' => 'Default background image',
-                'default' => ''
+            'htbackstretch-default-bg-image-notice' => array(
+                'type' => 'notice',
+                'name' => 'htbackstretch-default-bg-image-notice',
+                'notice' => 'Go and set the body background image in the Visual Editor design mode!'
                 ),
             'heading-one-image' => array(
                 'type' => 'heading',

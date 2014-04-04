@@ -4,12 +4,14 @@ namespace htbackstretch;
 use \tad\wrappers\ThemeCustomizeSection as Section;
 use \tad\wrappers\headway\GlobalSettings as Settings;
 use \tad\wrappers\headway\VEPanel;
+use \tad\wrappers\Option;
 
 class Main
 {
     protected $section;
     protected $blockSetting;
     protected $panel;
+    protected $showColorPicker;
 
     public function __construct()
     {
@@ -29,11 +31,12 @@ class Main
         $blockSettings = new Settings('htbackstretch-');
         // default behavior is to allow the user to set the bg color
         // access 'htbackstretch-no-image-selected' setting in camelBack
-        $showColorPicker = $blockSettings->noImageSelected;
+        $dbValue = $blockSettings->noImageSelected;
+        is_null($dbValue) ? $this->showColorPicker = '0' : $this->showColorPicker = $dbValue;
         // please note: the first option in the select the theme developer
         // uses has the index 0 and that's the one reading
         // 'user can set a background color'
-        if (is_null($showColorPicker) or $showColorPicker == '0') {
+        if ($this->showColorPicker == '0') {
             // if the setting has not been set yet or the setting is
             // true then add the color picker to theme customizer controls
             // the set color will be stored in the 'backstretch[bg-color]' option
@@ -41,8 +44,31 @@ class Main
         }
         // register this block theme-wide settings
         $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
+        // depending on the setting then print a style to the page
+        $this->maybePrintBodyStyle();
     }
-
+    protected function maybePrintBodyStyle()
+    {
+        // if the theme user is not allowed to set a body background color return
+        if ($this->showColorPicker != '0') {
+            return;
+        }
+        // hook into the 'wp_enqueue_scripts' hook to print the style
+        $tag = 'wp_enqueue_scripts';
+        $function = function () {
+            $class = 'htbackstretch-color';
+            $color = \tad\wrappers\Option::on('backstretch')->bgColor;
+            echo sprintf('<style>body.%s{background-color:%s;}</style>', $class, $color);
+        };
+        add_action($tag, $function);
+        // hook into th body_class filter to add a class to the body
+        $tag = 'body_class';
+        $function = function ($classes) {
+            $classes[] = 'htbackstretch-color';
+            return $classes;
+        };
+        add_filter($tag, $function);
+    }
     public function blockRegister()
     {
         if (!class_exists('Headway')) {
