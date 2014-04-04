@@ -2,12 +2,14 @@
 namespace htbackstretch;
 
 use \tad\wrappers\ThemeCustomizeSection as Section;
-use \tad\wrapers\headway\BlockSetting as Setting;
+use \tad\wrappers\headway\BlockSettings as Settings;
+use \tad\wrappers\headway\VEPanel;
 
 class Main
 {
     protected $section;
     protected $blockSetting;
+    protected $panel;
 
     public function __construct()
     {
@@ -23,32 +25,33 @@ class Main
         $this->themeSection->addSetting('imageSources', 'Upload or select one or more images.', '', 'multi-image');
         // load site-wide settings from the database
         // using namespace as it's the same as the block id
-        $blockSettings = new \tad\wrappers\HeadwayBlockSetting(__NAMESPACE__);
+        $blockSettings = new Settings(__NAMESPACE__);
         // conservative default
         $showColorPicker = $blockSettings->settings['bg-color-allow'];
         if (is_null($showColorPicker) or (bool)$showColorPicker) {
             $this->themeSection->addSetting('bg-color', 'Select a background color', '#FFF', 'color');
         }
         // register this block theme-wide options
-        add_action('after_setup_theme', array($this, 'addVisualEditorPanels'));
+        $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
+        // add_action('after_setup_theme', array($this, 'addVisualEditorPanels'));
     }
 
-    public function addVisualEditorPanels()
-    {
-        if (!class_exists('Headway')) {
-            return;
-        }
-        // include the class defining those options
-        include_once dirname(__FILE__) . '/VisualEditorPanel.php';
-        // register the visual editor panel
-        $class = '\htbackstretch\VisualEditorPanel';
-        $tag = 'headway_visual_editor_display_init';
-        // hook in with a priority higher than the one Headway registers
-        // its own setup block to have the Header Image options panel show
-        // on the right side of it
-        $priority = 1000;
-        add_action($tag, create_function('', 'return headway_register_visual_editor_panel_callback(\'' . $class . '\');'), $priority);
-    }
+    // public function addVisualEditorPanels()
+    // {
+    //     if (!class_exists('Headway')) {
+    //         return;
+    //     }
+    //     // include the class defining those options
+    //     include_once dirname(__FILE__) . '/VisualEditorPanel.php';
+    //     // register the visual editor panel
+    //     $class = '\htbackstretch\VisualEditorPanel';
+    //     $tag = 'headway_visual_editor_display_init';
+    //     // hook in with a priority higher than the one Headway registers
+    //     // its own setup block to have the Header Image options panel show
+    //     // on the right side of it
+    //     $priority = 1000;
+    //     add_action($tag, create_function('', 'return headway_register_visual_editor_panel_callback(\'' . $class . '\');'), $priority);
+    // }
 
     public function blockRegister()
     {
