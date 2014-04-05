@@ -27,11 +27,7 @@ class Main
         $this->themeSection->addSetting('imageSources', 'Upload or select one or more images.', '', 'multi-image');
         // load site-wide settings from the database passing a prefix to get this block
         // theme-wide settings only
-        // see the htbackstretch\VisualEditorPanel class for the settings slugs
-        $blockSettings = new Settings('htbackstretch-');
-        // default behavior is to allow the user to set the bg color
-        // access 'htbackstretch-no-image-selected' setting in camelBack
-        $dbValue = $blockSettings->noImageSelected;
+        $dbValue = Settings::on('htbackstretch-')->noImageSelected;
         is_null($dbValue) ? $this->showColorPicker = '0' : $this->showColorPicker = $dbValue;
         // please note: the first option in the select the theme developer
         // uses has the index 0 and that's the one reading
