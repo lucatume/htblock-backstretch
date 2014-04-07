@@ -14,6 +14,7 @@ class Main
     protected $settings;
     protected $panel;
     protected $showColorPicker;
+    protected $imageSources;
 
     public function __construct()
     {
