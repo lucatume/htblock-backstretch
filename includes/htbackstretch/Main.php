@@ -50,11 +50,12 @@ class Main
     }
     protected function useOptions()
     {
-        // get the images sources from the database
-        $imageSrcs = Option::on('backstretch')->imageSources;
+        // get the images sources from the database if the theme user did
+        // upload/selected at least one
+        $imageSources = Option::on('backstretch')->imageSources;
         // if the user did not select at least one image to use as the body
         // background then maybe use the color
-        if (!$imageSources or $imageSources == '') {
+        if (is_null($imageSources) or $imageSources == '') {
             $this->maybePrintBodyStyle();
             return;
         }
