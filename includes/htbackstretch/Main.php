@@ -90,6 +90,13 @@ class Main
         $this->imageSources = explode(',', $imageSources);
         // will be 1 to many
         $count = count($this->imageSources);
+        // did the theme developer chose to show one random image per page?
+        // default to false -> show in a slider-like effect
+        $useRandom = (bool)($this->settings->moreImagesSelected or '0');
+        if ($useRandom) {
+            $randomIndex = mt_rand(0, $count - 1);
+            $this->imageSources = array($this->imageSources[$randomIndex]);
+        }
         $useEffect = false;
         // effects: grayscale, sepia, negative in this order
         $effect = '0';
