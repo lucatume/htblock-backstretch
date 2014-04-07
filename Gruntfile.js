@@ -19,6 +19,10 @@ module.exports = function(grunt) {
             frontend: {
                 src: ['assets/js/src/backstretch_block.js'],
                 dest: 'assets/js/backstretch_block.js'
+            },
+            backstretchStart: {
+                src: ['assets/js/src/backstretchStart.js'],
+                dest: 'assets/js/backstretchStart.js'
             }
         },
         jshint: {
@@ -48,7 +52,8 @@ module.exports = function(grunt) {
             all: {
                 files: {
                     'assets/js/backstretch_block_admin.min.js': ['assets/js/backstretch_block_admin.js'],
-                    'assets/js/backstretch_block.min.js': ['assets/js/backstretch_block.js']
+                    'assets/js/backstretch_block.min.js': ['assets/js/backstretch_block.js'],
+                    'assets/js/backstretchStart.min.js': ['assets/js/backstretchStart.js']
                 },
                 options: {
                     banner: '/*! <%= pkg.title %> - v<%= pkg.version %>\n' +
