@@ -142,13 +142,4 @@ class VisualEditorPanel extends \HeadwayVisualEditorPanelAPI
                     )
                 )
             );
-
-    protected function inputName($inputSlug)
-    {
-        return sprintf('#input-%s-%s', $this->id, $inputSlug);
-    }
-    protected function optionName($inputSlug)
-    {
-        return sprintf('%s-%s', $this->id, $inputSlug);
-    }
 }
