@@ -9,7 +9,7 @@ use \tad\wrappers\Option;
 class Main
 {
     protected $section;
-    protected $blockSetting;
+    protected $settings;
     protected $panel;
     protected $showColorPicker;
 
@@ -27,7 +27,8 @@ class Main
         $this->themeSection->addSetting('imageSources', 'Upload or select one or more images.', '', 'multi-image');
         // load site-wide settings from the database passing a prefix to get this block
         // theme-wide settings only
-        $dbValue = Settings::on('htbackstretch-')->noImageSelected;
+        $this->settings = new Settings('htbackstretch-');
+        $dbValue = $this->settings->noImageSelected;
         is_null($dbValue) ? $this->showColorPicker = '0' : $this->showColorPicker = $dbValue;
         // please note: the first option in the select the theme developer
         // uses has the index 0 and that's the one reading
@@ -39,9 +40,17 @@ class Main
             $this->themeSection->addSetting('bg-color', 'Select a background color', '#FFF', 'color');
         }
         // register this block theme-wide settings
-        $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
+        VEPanel::on(__NAMESPACE__ . '\VisualEditorPanel');
+        // $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
+        // depending on the theme user and the theme developer settings
+        // do something related to the body background image or color
+        $this->useTheOptions();
         // depending on the setting then print a style to the page
         $this->maybePrintBodyStyle();
+    }
+    protected function useTheOptions()
+    {
+
     }
     protected function maybePrintBodyStyle()
     {
