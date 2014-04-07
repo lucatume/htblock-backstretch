@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
     // one image?
     if (backstretchImages.length === 1) {
         $.backstretch(backstretchImages[0]);
+        return;
     }
     // 2 or more images?
     $.backstretch(backstretchImages, {
