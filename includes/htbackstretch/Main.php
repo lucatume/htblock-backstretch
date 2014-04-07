@@ -83,6 +83,64 @@ class Main
         };
         add_filter($tag, $function);
     }
+    protected function useImages($imageSources)
+    {
+        // the multiple images control will store the image sources in a
+        // comma separated list
+        $this->imageSources = explode(',', $imageSources);
+        // will be 1 to many
+        $count = count($imageSources);
+        $useEffect = false;
+        // effects: grayscale, sepia, negative in this order
+        $effect = '0';
+        if ($count == 1) {
+            // the setting for 'do not use an effect' is '0'
+            // will default to not using an effect
+            $useEffect = (bool)($this->settings->oneImageSelected or '0');
+            $effect = $this->settings->oneImageEffect or '0';
+        } else {
+            // the setting for 'do not use an effect' is '0'
+            // will default to not using an effect
+            $useEffect = (bool)($this->settings->moreImagesEffectUse or '0');
+            $effect = $this->settings->moreImagesEffect or '0';
+        }
+        if ($useEffect) {
+            $buffer = array();
+            foreach ($imageSources as $src) {
+                // obtain the url to the modified image generated
+                // by bfi_thumb
+                $params = array();
+                switch ($effect) {
+                    case '1':
+                        // sepia
+                        $params = array('grayscale' => true, 'color' => '#643200');
+                    case '2':
+                        // negative
+                        $params = array('negate' => true);
+                        break;
+                   default:
+                        // grayscale
+                        $params = array('grayscale' => true);
+                    break;
+                }
+                // add the source of the modified image to the buffer
+                $buffer[] = bfi_thumb($src, $params);
+            }
+            $this->imageSources = $buffer();
+        }
+        // hook into wp_enqueue_scripts
+        add_action( 'wp_enqueue_scripts', array($this, 'enqueueScripts'));
+    }
+    public function enqueueScripts()
+    {
+        // enqueue the backstretch plugin, requires jQuery
+        wp_enqueue_script('backstretch', '//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js', 'jquery'); 
+        // localize the image sources to the page
+        wp_localize_script('backstretch', 'backstretchImages', $this->imageSources); 
+        // enqueue a script to start backstretch
+        $src = Script::suffix(HTBACKSTRETCH_BLOCK_URL . 'assets/js/backstretchStart.js');
+        wp_enqueue_script('backstretchStart', $src, array('jquery', 'backstretch'), false, true);
+    }
     public function blockRegister()
     {
         if (!class_exists('Headway')) {
