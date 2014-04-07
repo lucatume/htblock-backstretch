@@ -41,16 +41,22 @@ class Main
         }
         // register this block theme-wide settings
         VEPanel::on(__NAMESPACE__ . '\VisualEditorPanel');
-        // $this->panel = new VEPanel(__NAMESPACE__ . '\VisualEditorPanel');
         // depending on the theme user and the theme developer settings
         // do something related to the body background image or color
-        $this->useTheOptions();
-        // depending on the setting then print a style to the page
-        $this->maybePrintBodyStyle();
+        $this->useOptions();
     }
-    protected function useTheOptions()
+    protected function useOptions()
     {
-
+        // get the images sources from the database
+        $imageSrcs = Option::on('backstretch')->imageSources;
+        // if the user did not select at least one image to use as the body
+        // background then maybe use the color
+        if (!$imageSources or $imageSources == '') {
+            $this->maybePrintBodyStyle();
+            return;
+        }
+        // there is at least one image, use that
+        $this->useImages($imageSources);
     }
     protected function maybePrintBodyStyle()
     {
