@@ -111,9 +111,9 @@ class Main
             $useEffect = (bool)($this->settings->moreImagesEffectUse or '0');
             $effect = $this->settings->moreImagesEffect or '0';
         }
-        // require the BFI_Thumb file
-        \tadlibs_include('bfi/BFI_Thumb');
-        if ($useEffect && function_exists('bfi_thumb')) {
+        if ($useEffect) {
+            // require the BFI_Thumb file
+            \tadlibs_include('bfi/BFI_Thumb');
             $buffer = array();
             foreach ($this->imageSources as $src) {
                 // obtain the url to the modified image generated
