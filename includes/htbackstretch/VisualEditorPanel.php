@@ -104,9 +104,9 @@ class VisualEditorPanel extends \HeadwayVisualEditorPanelAPI
                     'name' => 'heading-more-images',
                     'label' => 'Two or more images selected'
                     ),
-                'htbackstretch-more-images-use' => array(
+                'htbackstretch-more-images-selected' => array(
                     'type' => 'select',
-                    'name' => 'htbackstretch-more-images-use',
+                    'name' => 'htbackstretch-more-images-selected',
                     'label' => 'If the user did select two or more images:',
                     'options' => array(
                         'show the images in a slider-like effect',
