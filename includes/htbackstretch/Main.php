@@ -128,7 +128,7 @@ class Main
                         // negative
                         $params = array('negate' => true);
                         break;
-                   default:
+                    default:
                         // grayscale
                         $params = array('grayscale' => true);
                         break;
@@ -143,11 +143,12 @@ class Main
     }
     public function enqueueScripts()
     {
-        // enqueue the backstretch plugin, requires jQuery
+        // enqueue the backstretch plugin from the CDN, requires jQuery
         wp_enqueue_script('backstretch', '//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js', 'jquery'); 
         // localize the image sources to the page
         wp_localize_script('backstretch', 'backstretchImages', $this->imageSources); 
         // enqueue a script to start backstretch
+        // using a debug friendly suffix
         $src = Script::suffix(HTBACKSTRETCH_BLOCK_URL . 'assets/js/backstretchStart.js');
         wp_enqueue_script('backstretchStart', $src, array('jquery', 'backstretch'), false, true);
     }
