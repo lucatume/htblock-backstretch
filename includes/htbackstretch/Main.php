@@ -6,7 +6,6 @@ use \tad\wrappers\headway\GlobalSettings as Settings;
 use \tad\wrappers\headway\VEPanel;
 use \tad\wrappers\Option;
 use \tad\utils\Script;
-use \bfi\Thumb;
 
 class Main
 {
