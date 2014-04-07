@@ -89,7 +89,7 @@ class Main
         // comma separated list
         $this->imageSources = explode(',', $imageSources);
         // will be 1 to many
-        $count = count($imageSources);
+        $count = count($this->imageSources);
         $useEffect = false;
         // effects: grayscale, sepia, negative in this order
         $effect = '0';
@@ -116,6 +116,7 @@ class Main
                     case '1':
                         // sepia
                         $params = array('grayscale' => true, 'color' => '#643200');
+                        break;
                     case '2':
                         // negative
                         $params = array('negate' => true);
@@ -123,12 +124,12 @@ class Main
                    default:
                         // grayscale
                         $params = array('grayscale' => true);
-                    break;
+                        break;
                 }
                 // add the source of the modified image to the buffer
                 $buffer[] = bfi_thumb($src, $params);
             }
-            $this->imageSources = $buffer();
+            $this->imageSources = $buffer;
         }
         // hook into wp_enqueue_scripts
         add_action( 'wp_enqueue_scripts', array($this, 'enqueueScripts'));
