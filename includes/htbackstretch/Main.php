@@ -9,7 +9,7 @@ use \tad\utils\Script;
 
 class Main
 {
-    protected $section;
+    protected $themeSection;
     protected $settings;
     protected $panel;
     protected $showColorPicker;
