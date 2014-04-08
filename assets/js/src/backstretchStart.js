@@ -1,19 +1,21 @@
-/*global document, jQuery, backstretch, $, backstretchImages*/
+/*global document, jQuery, backstretch, $, backstretchData*/
 jQuery(document).ready(function($) {
     // if the expected data is not there return
     // if there are no images in the data return
     // if backstretch has not been loaded return
-    if (backstretchImages === 'undefined' || backstretchImages.length === 0 || $.backstretch === 'undefined') {
+    if (backstretchData['imageSources'] === 'undefined' || backstretchData['imageSources'].length === 0 || $.backstretch === 'undefined') {
         return;
     }
+    var srcs = backstretchData['imageSources'],
+        params = {
+            duration: parseInt(backstretchData['duration'], 10),
+            fade: parseInt(backstretchData['fade'], 10)
+        };
     // one image?
-    if (backstretchImages.length === 1) {
-        $.backstretch(backstretchImages[0]);
+    if (srcs.length === 1) {
+        $.backstretch(srcs[0], params);
         return;
     }
     // 2 or more images?
-    $.backstretch(backstretchImages, {
-        duration: 3000,
-        fade: 750
-    });
+    $.backstretch(srcs, params);
 });
