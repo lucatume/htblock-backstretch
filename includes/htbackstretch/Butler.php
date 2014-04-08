@@ -42,7 +42,7 @@ class Butler
             return;
         }
         // there is at least one image, use that
-        $this->useImages($this->imageSources);
+        $this->useImages();
     }
 
     protected function maybePrintBodyStyle()
@@ -67,11 +67,11 @@ class Butler
         add_filter($tag, $function);
     }
 
-    protected function useImages($imageSources)
+    protected function useImages()
     {
         // the multiple images control will store the image sources in a
         // comma separated list
-        $this->imageSources = explode(',', $imageSources);
+        $this->imageSources = explode(',', $this->imageSources);
         // will be 1 to many
         $count = count($this->imageSources);
         // did the theme developer chose to show one random image per page?
