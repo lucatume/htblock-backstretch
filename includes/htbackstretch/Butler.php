@@ -130,8 +130,10 @@ class Butler
     {
         // enqueue the backstretch plugin from the CDN, requires jQuery
         wp_enqueue_script('backstretch', '//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js', 'jquery'); 
-        // localize the image sources to the page
-        wp_localize_script('backstretch', 'backstretchImages', $this->imageSources); 
+        // get the duration and fade settings with some defaults
+        $this->duration = intval($this->settings->moreImagesDuration);
+        $this->fade = intval($this->settings->moreImagesFade);
+        wp_localize_script('backstretch', 'backstretchData', $this->data); 
         // enqueue a script to start backstretch
         // using a debug friendly suffix
         $src = Script::suffix(HTBACKSTRETCH_BLOCK_URL . 'assets/js/backstretchStart.js');
