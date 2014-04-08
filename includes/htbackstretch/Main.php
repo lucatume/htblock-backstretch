@@ -18,7 +18,6 @@ class Main
 
     public function __construct()
     {
-        add_action('after_setup_theme', array($this, 'blockRegister'));
         add_action('init', array($this, 'extend_updater'));
         // add the 'Background images' section
         // options will be stored in the 'backstretch' option in an array format
@@ -53,14 +52,6 @@ class Main
         $this->butler = new Butler($showColorPicker);
         $this->butler->serve();
         // $this->useOptions();
-    }
-
-    public function blockRegister()
-    {
-        if (!class_exists('Headway')) {
-            return;
-        }
-        return headway_register_block('\htbackstretch\Block', plugins_url(false, __FILE__));
     }
 
     public function extend_updater()
