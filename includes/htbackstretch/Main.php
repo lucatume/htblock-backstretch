@@ -7,6 +7,9 @@ use \tad\wrappers\headway\VEPanel;
 use \tad\wrappers\Option;
 use \tad\utils\Script;
 
+/**
+ * The entry point of the block plugin; hooks into Headway and WordPress.
+ */
 class Main
 {
     protected $themeSection;
