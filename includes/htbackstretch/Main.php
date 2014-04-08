@@ -32,11 +32,10 @@ class Main
         // theme-wide settings only
         $this->settings = new Settings('htbackstretch-');
         $dbValue = $this->settings->noImageSelected;
-        is_null($dbValue) ? $this->showColorPicker = '0' : $this->showColorPicker = $dbValue;
-        // please note: the first option in the select the theme developer
-        // uses has the index 0 and that's the one reading
-        // 'user can set a background color'
-        if ($this->showColorPicker == '0') {
+        // the setting to allow a user to set the body bg
+        // is '0' -> reverse casting to bool
+        $showColorPicker = !(bool)($dbValue or '0');
+        if ($showColorPicker) {
             // if the setting has not been set yet or the setting is
             // true then add the color picker to theme customizer controls
             // the set color will be stored in the 'backstretch[bg-color]' option
