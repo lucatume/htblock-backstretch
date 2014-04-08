@@ -43,6 +43,11 @@ class Main
         }
         // register this block theme-wide settings
         VEPanel::on(__NAMESPACE__ . '\VisualEditorPanel');
+        // along with the visual editor panel load a litte style to
+        // fix the slider width
+        add_action('headway_visual_editor_styles', function (){
+            echo sprintf('<style>%s {width:%dpx;}</style>', 'input[id*="input-general-htbackstretch-"]', 30);
+        });
         // depending on the theme user and the theme developer settings
         // delegate the butler with the administration of theme user options and theme developer settings
         $this->butler = new Butler($showColorPicker);
