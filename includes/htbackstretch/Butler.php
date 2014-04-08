@@ -11,36 +11,45 @@ use \tad\utils\Script;
 class Butler
 {
     protected $allowSetColor;
-    protected $imageSources;
+    protected $data;
     protected $settings;
 
     public function __construct($allowSetColor = false)
     {
         $this->allowSetColor = $allowSetColor;
-        $this->imageSources = '';
+        $this->data = array();
         $this->settings = new Settings('htbackstretch-');
+    }
+    public function __get($key)
+    {
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+    }
+    public function __set($key, $value)
+    {
+        $this->data[$key] = $value;
     }
     public function serve()
     {
         // get the images sources from the database if the theme user did
         // upload/selected at least one
-        $imageSources = Option::on('backstretch')->imageSources;
+        $this->imageSources = Option::on('backstretch')->imageSources;
         // if the user did not select at least one image to use as the body
         // background then maybe use the color
-        if (is_null($imageSources) or $imageSources == '') {
+        if (is_null($this->imageSources) or $this->imageSources == '') {
             $this->maybePrintBodyStyle();
             return;
         }
         // there is at least one image, use that
-        $this->useImages($imageSources);
+        $this->useImages($this->imageSources);
     }
 
     protected function maybePrintBodyStyle()
     {
         // if the theme user is not allowed to set a body background color return
         if (!$this->allowSetColor) {
-            return;
-        }
+            return; }
         // hook into the 'wp_enqueue_scripts' hook to print the style
         $tag = 'wp_enqueue_scripts';
         $function = function () {
