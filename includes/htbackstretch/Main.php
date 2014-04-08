@@ -4,8 +4,6 @@ namespace htbackstretch;
 use \tad\wrappers\ThemeCustomizeSection as Section;
 use \tad\wrappers\headway\GlobalSettings as Settings;
 use \tad\wrappers\headway\VEPanel;
-use \tad\wrappers\Option;
-use \tad\utils\Script;
 
 /**
  * The entry point of the block plugin; hooks into Headway and WordPress.
