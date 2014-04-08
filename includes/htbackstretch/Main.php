@@ -13,7 +13,7 @@ class Main
     protected $themeSection;
     protected $settings;
     protected $panel;
-    protected $showColorPicker;
+    protected $butler;
     protected $imageSources;
 
     public function __construct()
