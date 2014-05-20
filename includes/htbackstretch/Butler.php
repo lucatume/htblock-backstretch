@@ -129,7 +129,7 @@ class Butler
     public function enqueueScripts()
     {
         // enqueue the backstretch plugin from the CDN, requires jQuery
-        wp_enqueue_script('backstretch', '//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js', 'jquery'); 
+        wp_enqueue_script('backstretch', '//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js', array('jquery')); 
         // get the duration and fade settings with some defaults
         $this->duration = intval($this->settings->moreImagesDuration);
         $this->fade = intval($this->settings->moreImagesFade);
