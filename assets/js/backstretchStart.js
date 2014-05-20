@@ -2,16 +2,16 @@
  * http://theaveragedev.com
  * Copyright (c) 2014; * Licensed GPLv2+ */
 jQuery(document).ready(function($) {
-    // if the expected data is not there return
-    // if there are no images in the data return
-    // if backstretch has not been loaded return
+    if (backstretchData === 'undefined') {
+        return;
+    }
     if (backstretchData['imageSources'] === 'undefined' || backstretchData['imageSources'].length === 0 || $.backstretch === 'undefined') {
         return;
     }
     var srcs = backstretchData['imageSources'],
         params = {
-            duration: parseInt(backstretchData['duration'], 10),
-            fade: parseInt(backstretchData['fade'], 10)
+            duration: parseInt(backstretchData['duration'], 10) || 3000,
+            fade: parseInt(backstretchData['fade'], 10) || 500
         };
     // one image?
     if (srcs.length === 1) {
