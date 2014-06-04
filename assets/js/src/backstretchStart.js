@@ -1,5 +1,8 @@
 /*global document, jQuery, backstretch, $, backstretchData*/
 jQuery(document).ready(function($) {
+    if (!$.backstretch) {
+        return;
+    }
     if (backstretchData === 'undefined') {
         return;
     }

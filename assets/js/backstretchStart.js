@@ -2,6 +2,9 @@
  * http://theaveragedev.com
  * Copyright (c) 2014; * Licensed GPLv2+ */
 jQuery(document).ready(function($) {
+    if (!$.backstretch) {
+        return;
+    }
     if (backstretchData === 'undefined') {
         return;
     }
